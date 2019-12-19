@@ -5,7 +5,6 @@ from keras.layers.core import Activation, Reshape
 from keras.layers.convolutional import Conv2D, MaxPooling2D, AveragePooling2D
 import keras.backend as K
 import tensorflow as tf
-from bolt.rb_keras.activations import softmax_4_dimension
 from bolt.utils.model_building import load_keras_model, get_building_tools
 
 def ResidualConvUnit(inputs,n_filters=16,kernel_size=16,name=''):
@@ -115,7 +114,7 @@ def IFS_Refinenet_4CLS(n_classes=4, load_model=None):
     #net["upsample"] = Lambda(lambda x: tf.image.resize_bilinear(x, (128, 192)), name='rf_up_o')(net)
 
     cls_shape = (n_classes, -1) if K.image_dim_ordering() == "th" else (-1, n_classes)
-    net["act"] = Activation(softmax_4_dimension)(net["last_conv"])
+    net["act"] = Activation("softmax")(net["last_conv"])
     net["predictions"] = Reshape(cls_shape, name="ground_truth")(net["act"])
 
     model = Model(input=net["input"], output=[net["predictions"]])
