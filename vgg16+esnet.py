@@ -5,7 +5,6 @@ from keras.layers.core import Activation, Reshape
 from keras.layers.convolutional import Conv2D, MaxPooling2D, AveragePooling2D
 import keras.backend as K
 import tensorflow as tf
-from bolt.utils.model_building import load_keras_model, get_building_tools
 
 def ResidualConvUnit(inputs,n_filters=16,kernel_size=16,name=''):
 
